@@ -81,6 +81,41 @@ From PowerShell in the project folder, run the helper and enter a Gemini API key
 
 The helper configures the Gemini OpenAI-compatible endpoint and model in the local `.env` file. Restart Streamlit after changing settings. Never paste an API key into source code, commit it, or share it in screenshots. For another compatible provider, configure `LLM_BASE_URL`, `LLM_API_KEY`, and `LLM_MODEL` in `.env` instead.
 
+## Publish a reviewer demo
+
+GitHub stores the source code; it does **not** run this Streamlit app as a live website. To give reviewers a clickable app, deploy the GitHub repository with a Streamlit hosting service such as [Streamlit Community Cloud](https://share.streamlit.io/). The deployed URL will be a Streamlit app URL, not a GitHub Pages URL.
+
+This project includes a reviewer-gated demo mode. In that mode, the shared app:
+
+- requires reviewer credentials held in the hosting service's secrets;
+- requires the configured LLM and does not use deterministic business rules as an analysis fallback;
+- keeps each visitor's analysis in that visitor's Streamlit session rather than writing uploaded documents or results into the shared SQLite database;
+- displays a warning that uploaded excerpts are sent to the configured LLM provider.
+
+The gate is a **shared demo passcode**, not production authentication or per-user accounts. Only share the URL and credentials with intended reviewers. It is not a substitute for access control, rate limiting, or production data governance. Ask reviewers to use the synthetic sample only.
+
+### Deployment steps
+
+1. Ensure your latest app changes are pushed to the GitHub repository. Confirm `.env` and `.streamlit/secrets.toml` are ignored by Git; never commit an API key.
+2. Sign in to Streamlit Community Cloud with GitHub and create an app from this repository. Select the repository, branch, and `app.py` as the main file.
+3. In the app's **Settings → Secrets**, add values in TOML format. Replace the placeholders with a fresh Gemini API key, a Gemini model identifier currently available to that key, and a long random reviewer password:
+
+   ```toml
+   CONTEXTFLOW_DEMO_MODE = "true"
+   CONTEXTFLOW_REQUIRE_LLM = "true"
+   DEMO_USERNAME = "reviewer"
+   DEMO_PASSWORD = "replace-with-a-long-random-password"
+   LLM_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai"
+   LLM_API_KEY = "paste-your-new-key-here"
+   LLM_MODEL = "model-name-available-in-your-Gemini-account"
+   ```
+
+4. Save the secrets and deploy/reboot the app. Sign in using the `DEMO_USERNAME` and `DEMO_PASSWORD` you chose. Test with `data/sample_upload/acme_account_review.txt`.
+5. Share the Streamlit app URL and reviewer credentials through the application form or another appropriate private channel. Do not put the password or API key in the public README or GitHub repository.
+6. After review, remove the hosted API key from the app's secrets and revoke it in Google AI Studio. Deleting a key from hosting does not revoke a key that was exposed elsewhere.
+
+**Key and quota warning:** the hosted service uses the owner's single API key; reviewers do not need to create one. They share its provider quota. A free-tier key still has quotas and abuse risk; check the provider's current terms, usage limits, and billing settings. The shared passcode is not rate limiting, so do not distribute this demo broadly or upload real/confidential records.
+
 ## Run locally on Windows
 
 Open PowerShell in the project folder and run each command separately:
