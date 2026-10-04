@@ -1,0 +1,39 @@
+ACME CORPORATION — ACCOUNT REVIEW PACKET
+Prepared: October 4, 2026
+Purpose: Example records for reviewing a billing concern and an upcoming contract renewal.
+All names, amounts, and records in this sample are fictional.
+
+CUSTOMER EMAIL
+From: Maya Chen, Acme Corporation
+Subject: Please review invoice INV-8821
+
+Hello Finance Team,
+
+We were charged $2,400.00 for invoice INV-8821. Our service agreement lists a monthly amount of $1,800.00. Please review the difference before the next billing cycle and explain what happened. Please do not process a credit until the review is complete.
+
+Our agreement expires on October 21, 2026. Please confirm the renewal steps.
+
+Thank you,
+Maya Chen
+
+INVOICE RECORD
+Customer: Acme Corporation
+Invoice reference: INV-8821
+Invoice date: October 1, 2026
+Description: Monthly service
+Invoice total: $2,400.00
+Payment status: Open
+
+SERVICE AGREEMENT
+Customer: Acme Corporation
+Invoice reference: INV-8821
+Contract monthly amount: $1,800.00
+Contract expiry: October 21, 2026
+Renewal terms: Account review is required before renewal.
+
+FINANCE REVIEW POLICY
+Invoice discrepancies greater than $500.00 require finance review.
+Do not promise an adjustment or refund until finance has reviewed the source invoice and contract.
+
+EXPECTED HUMAN REVIEW
+Compare the invoice and agreement, confirm whether the $600.00 difference is valid, and review the renewal requirements. Do not send a message, issue a refund, or change any account based only on this sample.

@@ -182,7 +182,20 @@ def analyze_context(
         response.raise_for_status()
     except requests.RequestException as exc:
         status = exc.response.status_code if exc.response is not None else "network"
-        raise AgentError(f"The configured LLM request failed ({status}). Rule-based analysis is still available.") from exc
+        detail = ""
+        if exc.response is not None:
+            try:
+                error_body = exc.response.json()
+            except ValueError:
+                error_body = {}
+            if isinstance(error_body, dict):
+                error = error_body.get("error")
+                if isinstance(error, dict) and isinstance(error.get("message"), str):
+                    detail = error["message"].replace(settings.llm_api_key, "[redacted]").strip()[:300]
+        suffix = f": {detail}" if detail else ""
+        raise AgentError(
+            f"The configured LLM request failed ({status}){suffix}. Rule-based analysis is still available."
+        ) from exc
 
     try:
         response_body = response.json()

@@ -46,7 +46,7 @@ Copy `.env.example` to `.env`, add your API key, and restart the app:
 Copy-Item .env.example .env
 ```
 
-Set `LLM_BASE_URL`, `LLM_API_KEY`, and `LLM_MODEL` in `.env` or Streamlit Cloud secrets. Without both the base URL and key, all analysis stays in local rule-based mode. When configured, the LLM receives retrieved excerpts from your documents; use only a provider appropriate for the information you upload. Never commit `.env` or Streamlit secrets.
+Set `LLM_BASE_URL`, `LLM_API_KEY`, and `LLM_MODEL` in `.env` or Streamlit Cloud secrets. For Gemini, run `.\scripts\set-gemini-key.ps1` in PowerShell and enter the key at its hidden prompt. It configures Google's OpenAI-compatible endpoint and `gemini-3.8-flash`. Without both the base URL and key, all analysis stays in local rule-based mode. When configured, the LLM receives retrieved excerpts from your documents; use only a provider appropriate for the information you upload. Never commit `.env` or Streamlit secrets.
 
 ## Optional local vector search
 
