@@ -107,7 +107,7 @@ The gate is a **shared demo passcode**, not production authentication or per-use
    DEMO_PASSWORD = "replace-with-a-long-random-password"
    LLM_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai"
    LLM_API_KEY = "paste-your-new-key-here"
-   LLM_MODEL = "model-name-available-in-your-Gemini-account"
+   LLM_MODEL = "gemini-3.8-flash"
    ```
 
 4. Save the secrets and deploy/reboot the app. Sign in using the `DEMO_USERNAME` and `DEMO_PASSWORD` you chose. Test with `data/sample_upload/acme_account_review.txt`.
@@ -115,6 +115,8 @@ The gate is a **shared demo passcode**, not production authentication or per-use
 6. After review, remove the hosted API key from the app's secrets and revoke it in Google AI Studio. Deleting a key from hosting does not revoke a key that was exposed elsewhere.
 
 **Key and quota warning:** the hosted service uses the owner's single API key; reviewers do not need to create one. They share its provider quota. A free-tier key still has quotas and abuse risk; check the provider's current terms, usage limits, and billing settings. The shared passcode is not rate limiting, so do not distribute this demo broadly or upload real/confidential records.
+
+The same settings are provided in [`.streamlit/secrets.toml.example`](.streamlit/secrets.toml.example). Google documents the OpenAI-compatible Gemini endpoint and `gemini-3.8-flash` in its [Gemini API OpenAI compatibility guide](https://ai.google.dev/gemini-api/docs/openai). If Google AI Studio does not list that model for your key, choose an available compatible model and update `LLM_MODEL`; a 404 can indicate that the requested model or route was not found.
 
 ## Run locally on Windows
 

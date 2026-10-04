@@ -3,6 +3,7 @@ from dataclasses import replace
 import pytest
 
 from app.analysis import analyze_documents
+from app.agent import AgentError
 from app.config import Settings
 from app.ingestion import make_document
 
@@ -70,4 +71,34 @@ def test_llm_required_mode_fails_clearly_without_provider_secrets():
     document = make_document("record.txt", b"Customer asked for a follow-up.")
 
     with pytest.raises(RuntimeError, match="requires its LLM configuration"):
+        analyze_documents([document], settings)
+
+
+def test_llm_required_mode_does_not_claim_deterministic_fallback(monkeypatch):
+    import app.analysis as analysis
+
+    document = make_document("record.txt", b"Customer asked for a follow-up.")
+    settings = replace(
+        Settings.load(),
+        llm_base_url="https://llm.example/v1",
+        llm_api_key="test-key",
+        require_llm=True,
+    )
+
+    class FakeRetriever:
+        def __init__(self, chunks, **kwargs):
+            self.chunks = chunks
+
+        def search(self, query, top_k):
+            return self.chunks[:1]
+
+    monkeypatch.setattr(analysis, "LocalRetriever", FakeRetriever)
+    monkeypatch.setattr(analysis, "generate_rule_actions", lambda documents: [])
+    monkeypatch.setattr(
+        analysis,
+        "analyze_context",
+        lambda *args: (_ for _ in ()).throw(AgentError("The configured LLM request failed (404).")),
+    )
+
+    with pytest.raises(RuntimeError, match="Deterministic analysis is disabled"):
         analyze_documents([document], settings)

@@ -52,8 +52,10 @@ def analyze_documents(documents: list[Document], settings: Settings | None = Non
             llm_used = True
         except AgentError as exc:
             if settings.require_llm:
-                raise
-            warnings.append(str(exc))
+                raise RuntimeError(
+                    f"Required LLM analysis failed: {exc} Deterministic analysis is disabled in this demo."
+                ) from exc
+            warnings.append(f"{exc} Rule-based analysis is still available.")
     elif settings.llm_api_key or settings.llm_base_url:
         warnings.append("LLM integration is only partially configured. Set both LLM_BASE_URL and LLM_API_KEY.")
     else:
