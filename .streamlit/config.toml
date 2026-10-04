@@ -1,0 +1,13 @@
+[theme]
+base = "light"
+primaryColor = "#0E756E"
+backgroundColor = "#F7F9F8"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#172B36"
+font = "sans-serif"
+baseRadius = "medium"
+buttonRadius = "medium"
+
+[server]
+headless = true
+maxUploadSize = 10

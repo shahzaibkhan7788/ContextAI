@@ -1,0 +1,12 @@
+From: Maya Chen, Acme Corporation
+Subject: Please review invoice INV-8821
+
+Hello Finance Team,
+
+We were charged $2,400 for invoice INV-8821. Our contract says the monthly amount is $1,800.
+Please review the difference before the next billing cycle and let us know what happened.
+
+Our contract also expires on October 21, 2026. Please confirm the renewal steps.
+
+Thank you,
+Maya

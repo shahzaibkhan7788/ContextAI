@@ -1,0 +1,6 @@
+ACME CORPORATION
+Invoice: INV-8821
+Invoice date: October 1, 2026
+Description: Monthly service
+Invoice total: $2,400.00
+Payment status: Open

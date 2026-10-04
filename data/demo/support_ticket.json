@@ -1,0 +1,10 @@
+{
+  "ticket_id": "SUP-1042",
+  "company": "Acme Corporation",
+  "customer": "Maya Chen",
+  "subject": "Billing clarification and account update",
+  "status": "open",
+  "request": "Please confirm who will follow up about the invoice review.",
+  "priority": "normal",
+  "owner": "Unassigned"
+}

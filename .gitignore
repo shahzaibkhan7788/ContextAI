@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.streamlit/secrets.toml
+.contextflow/
+.pytest_cache/
+.coverage
+htmlcov/
