@@ -27,4 +27,5 @@ def test_llm_http_error_includes_provider_detail_and_redacts_key(monkeypatch):
         analyze_context(settings, [document], [], [])
 
     assert "failed (404): Model not found" in str(error.value)
+    assert "Rule-based analysis is still available" not in str(error.value)
     assert "private-test-key" not in str(error.value)

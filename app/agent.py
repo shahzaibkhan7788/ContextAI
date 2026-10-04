@@ -194,7 +194,7 @@ def analyze_context(
                     detail = error["message"].replace(settings.llm_api_key, "[redacted]").strip()[:300]
         suffix = f": {detail}" if detail else ""
         raise AgentError(
-            f"The configured LLM request failed ({status}){suffix}. Rule-based analysis is still available."
+            f"The configured LLM request failed ({status}){suffix}."
         ) from exc
 
     try:
